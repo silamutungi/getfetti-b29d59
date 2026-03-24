@@ -13,9 +13,211 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎉</text></svg>" />
+    <style>
+      .getfetti-hero-image-wrap {
+        width: 100%;
+        max-width: 720px;
+        margin: 0 auto;
+        border-radius: 24px;
+        overflow: hidden;
+        box-shadow: 0 8px 48px 0 rgba(80, 40, 120, 0.13), 0 2px 12px 0 rgba(0,0,0,0.07);
+        background: linear-gradient(135deg, #f9f3ff 0%, #fff7ed 50%, #fdf2f8 100%);
+        position: relative;
+        aspect-ratio: 16/9;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .getfetti-hero-image-inner {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 18px;
+        padding: 40px 32px;
+        box-sizing: border-box;
+        position: relative;
+      }
+      .getfetti-hero-confetti {
+        position: absolute;
+        top: 0; left: 0; right: 0; bottom: 0;
+        pointer-events: none;
+        overflow: hidden;
+        border-radius: 24px;
+      }
+      .getfetti-hero-confetti span {
+        position: absolute;
+        display: block;
+        border-radius: 2px;
+        opacity: 0.7;
+        animation: confetti-fall 4s linear infinite;
+      }
+      @keyframes confetti-fall {
+        0%   { transform: translateY(-40px) rotate(0deg);   opacity: 0.8; }
+        100% { transform: translateY(110%) rotate(360deg);  opacity: 0.2; }
+      }
+      .getfetti-hero-card {
+        background: #ffffff;
+        border-radius: 18px;
+        padding: 28px 36px 24px;
+        box-shadow: 0 4px 24px rgba(120, 60, 200, 0.10);
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+        min-width: 260px;
+        max-width: 380px;
+        width: 100%;
+        z-index: 2;
+        position: relative;
+      }
+      .getfetti-hero-card-tag {
+        font-family: 'DM Mono', monospace;
+        font-size: 11px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: #a78bfa;
+        background: #f3eeff;
+        border-radius: 100px;
+        padding: 3px 12px;
+        font-weight: 500;
+      }
+      .getfetti-hero-card-title {
+        font-family: 'Playfair Display', serif;
+        font-size: 22px;
+        font-weight: 700;
+        color: #1e1133;
+        line-height: 1.25;
+        margin: 0;
+      }
+      .getfetti-hero-card-meta {
+        font-family: 'DM Mono', monospace;
+        font-size: 12px;
+        color: #8b7aa8;
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+      }
+      .getfetti-hero-card-divider {
+        width: 100%;
+        height: 1px;
+        background: #f0ebfa;
+        margin: 4px 0;
+      }
+      .getfetti-hero-card-rsvps {
+        display: flex;
+        flex-direction: column;
+        gap: 7px;
+        width: 100%;
+      }
+      .getfetti-hero-rsvp-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+      }
+      .getfetti-hero-rsvp-name {
+        font-family: 'DM Mono', monospace;
+        font-size: 12px;
+        color: #3d2060;
+        font-weight: 500;
+      }
+      .getfetti-hero-rsvp-badge {
+        font-family: 'DM Mono', monospace;
+        font-size: 10px;
+        border-radius: 100px;
+        padding: 2px 10px;
+        font-weight: 500;
+        letter-spacing: 0.04em;
+      }
+      .getfetti-hero-rsvp-badge.yes {
+        background: #ecfdf5;
+        color: #059669;
+      }
+      .getfetti-hero-rsvp-badge.maybe {
+        background: #fffbeb;
+        color: #d97706;
+      }
+      .getfetti-hero-rsvp-badge.no {
+        background: #fef2f2;
+        color: #dc2626;
+      }
+      .getfetti-hero-emoji-row {
+        position: absolute;
+        bottom: 22px;
+        right: 28px;
+        display: flex;
+        gap: 8px;
+        font-size: 22px;
+        z-index: 3;
+        filter: drop-shadow(0 2px 6px rgba(120,60,200,0.10));
+      }
+    </style>
   </head>
   <body>
     <div id="root"></div>
+    <div id="getfetti-hero-image" class="getfetti-hero-image-wrap" style="display:none;">
+      <div class="getfetti-hero-image-inner">
+        <div class="getfetti-hero-confetti" id="getfetti-confetti-layer"></div>
+        <div class="getfetti-hero-card">
+          <span class="getfetti-hero-card-tag">✨ You're invited</span>
+          <p class="getfetti-hero-card-title">Summer Garden Party 🌸</p>
+          <div class="getfetti-hero-card-meta">
+            <span>📅 Saturday, July 19 · 4:00 PM</span>
+            <span>📍 The Rooftop, Brooklyn NY</span>
+          </div>
+          <div class="getfetti-hero-card-divider"></div>
+          <div class="getfetti-hero-card-rsvps">
+            <div class="getfetti-hero-rsvp-row">
+              <span class="getfetti-hero-rsvp-name">Jamie L.</span>
+              <span class="getfetti-hero-rsvp-badge yes">Going ✓</span>
+            </div>
+            <div class="getfetti-hero-rsvp-row">
+              <span class="getfetti-hero-rsvp-name">Priya M.</span>
+              <span class="getfetti-hero-rsvp-badge yes">Going ✓</span>
+            </div>
+            <div class="getfetti-hero-rsvp-row">
+              <span class="getfetti-hero-rsvp-name">Alex R.</span>
+              <span class="getfetti-hero-rsvp-badge maybe">Maybe</span>
+            </div>
+            <div class="getfetti-hero-rsvp-row">
+              <span class="getfetti-hero-rsvp-name">Sam T.</span>
+              <span class="getfetti-hero-rsvp-badge no">Can't go</span>
+            </div>
+          </div>
+        </div>
+        <div class="getfetti-hero-emoji-row">
+          <span>🎉</span><span>🥂</span><span>🌿</span><span>🎈</span>
+        </div>
+      </div>
+    </div>
     <script type="module" src="/src/main.tsx"></script>
+    <script>
+      (function() {
+        var colors = [
+          '#a78bfa','#f9a8d4','#fcd34d','#6ee7b7','#93c5fd','#fb7185','#fde68a','#c4b5fd'
+        ];
+        var layer = document.getElementById('getfetti-confetti-layer');
+        if (layer) {
+          for (var i = 0; i < 28; i++) {
+            var el = document.createElement('span');
+            var size = Math.random() * 8 + 5;
+            el.style.cssText = [
+              'width:' + size + 'px',
+              'height:' + (size * (Math.random() * 1.2 + 0.6)) + 'px',
+              'left:' + (Math.random() * 100) + '%',
+              'top:' + (Math.random() * -20) + 'px',
+              'background:' + colors[Math.floor(Math.random() * colors.length)],
+              'animation-delay:' + (Math.random() * 4) + 's',
+              'animation-duration:' + (Math.random() * 3 + 2.5) + 's',
+              'border-radius:' + (Math.random() > 0.5 ? '50%' : '2px')
+            ].join(';');
+            layer.appendChild(el);
+          }
+        }
+      })();
+    </script>
   </body>
 </html>
